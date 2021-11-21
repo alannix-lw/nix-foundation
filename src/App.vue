@@ -1,17 +1,17 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <img alt="Portrait" src="./assets/portrait.jpg" />
+  <NixFoundation msg="Welcome to the Lynn Nix Foundation" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import NixFoundation from "./components/NixFoundation.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    NixFoundation,
+  },
+};
 </script>
 
 <style>
