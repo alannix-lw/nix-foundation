@@ -17,7 +17,7 @@ jobs:
       LW_SCANNER_SAVE_RESULTS: true
       LW_SCANNER_SCAN_LIBRARY_PACKAGES: true
       DOCKER_REPO: alannix/nix-foundation
-      DOCKER_TAG: latest
+      DOCKER_TAG: ${{ github.sha }}
     steps:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build the latest Docker image
-        run: docker build -t ${DOCKER_REPO} .
+        run: docker build -t ${DOCKER_REPO}:latest -t ${DOCKER_REPO}:${DOCKER_TAG} .
 
       - name: Download Lacework Scanner
         run: |
@@ -52,4 +52,4 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Push the latest Docker image
-        run: docker push ${DOCKER_REPO}
+        run: docker push ${DOCKER_REPO}:${DOCKER_TAG}
