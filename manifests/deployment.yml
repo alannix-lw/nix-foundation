@@ -17,4 +17,4 @@ spec:
       - image: alannix/nix-foundation:latest
         name: nix-foundation-www
         ports:
-        - containerPort: 80
+        - containerPort: 8080
