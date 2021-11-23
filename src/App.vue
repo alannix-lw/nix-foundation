@@ -1,5 +1,5 @@
 <template>
-  <img alt="Portrait" src="./assets/portrait.jpg" />
+  <img id="portrait" alt="Portrait" src="./assets/portrait.jpg" />
   <NixFoundation msg="Welcome to the Lynn Nix Foundation" />
 </template>
 
@@ -22,5 +22,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#portrait {
+  border-radius: 25px;
+  filter: drop-shadow(0 0 0.2rem gray);
 }
 </style>
