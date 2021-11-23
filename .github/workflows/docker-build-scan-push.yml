@@ -27,23 +27,23 @@ jobs:
       - name: Build the latest Docker image
         run: docker build -t ${DOCKER_REPO}:${DOCKER_TAG} .
 
-      - name: Download Lacework Scanner
-        run: |
-          curl -LJO https://github.com/lacework/lacework-vulnerability-scanner/releases/download/v0.2.1/lw-scanner-linux-amd64
-          sudo mv lw-scanner-linux-amd64 lw-scanner
-          sudo chmod +x lw-scanner
+      # - name: Download Lacework Scanner
+      #   run: |
+      #     curl -LJO https://github.com/lacework/lacework-vulnerability-scanner/releases/download/v0.2.1/lw-scanner-linux-amd64
+      #     sudo mv lw-scanner-linux-amd64 lw-scanner
+      #     sudo chmod +x lw-scanner
 
-      - name: Lacework Image Assurance Scan
-        run: |
-          ./lw-scanner image evaluate ${DOCKER_REPO} ${DOCKER_TAG} \
-            --build-id ${{ github.run_id }} --html --html-file lacework-report.html \
-            --policy
+      # - name: Lacework Image Assurance Scan
+      #   run: |
+      #     ./lw-scanner image evaluate ${DOCKER_REPO} ${DOCKER_TAG} \
+      #       --build-id ${{ github.run_id }} --html --html-file lacework-report.html \
+      #       --policy
 
-      - name: Save Lacework HTML Report
-        uses: actions/upload-artifact@v2
-        with:
-          name: lacework-report
-          path: lacework-report.html
+      # - name: Save Lacework HTML Report
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: lacework-report
+      #     path: lacework-report.html
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
