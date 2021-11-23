@@ -37,7 +37,7 @@ jobs:
         run: |
           ./lw-scanner image evaluate ${DOCKER_REPO} ${DOCKER_TAG} \
             --build-id ${{ github.run_id }} --html --html-file lacework-report.html \
-            --policy
+            --policy --fail-on-violation-exit-code 1
 
       - name: Save Lacework HTML Report
         uses: actions/upload-artifact@v2
