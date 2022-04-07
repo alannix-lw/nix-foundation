@@ -36,7 +36,7 @@ jobs:
       - name: Lacework Image Assurance Scan
         run: |
           ./lw-scanner image evaluate ${IMAGE_REPO} ${IMAGE_TAG} \
-            --build-id ${{ github.run_id }} --html --html-file lacework-report.html
+            --build-id ${{ github.run_id }} --html --html-file lacework-report.html \
             --policy --fail-on-violation-exit-code 1
 
       - name: Save Lacework HTML Report
