@@ -16,8 +16,8 @@ jobs:
       LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }}
       LW_SCANNER_SAVE_RESULTS: true
       LW_SCANNER_SCAN_LIBRARY_PACKAGES: true
-      DOCKER_REPO: alannix/nix-foundation
-      DOCKER_TAG: latest
+      IMAGE_REPO: alannix/nix-foundation
+      IMAGE_TAG: latest
     steps:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build the latest Docker image
-        run: docker build -t ${DOCKER_REPO}:${DOCKER_TAG} .
+        run: docker build -t ${IMAGE_REPO}:${IMAGE_TAG} .
 
       - name: Download Lacework Scanner
         run: |
@@ -35,11 +35,12 @@ jobs:
 
       - name: Lacework Image Assurance Scan
         run: |
-          ./lw-scanner image evaluate ${DOCKER_REPO} ${DOCKER_TAG} \
+          ./lw-scanner image evaluate ${IMAGE_REPO} ${IMAGE_TAG} \
             --build-id ${{ github.run_id }} --html --html-file lacework-report.html
-      # --policy --fail-on-violation-exit-code 1
+            --policy --fail-on-violation-exit-code 1
 
       - name: Save Lacework HTML Report
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: lacework-report
@@ -52,4 +53,4 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Push the latest Docker image
-        run: docker push ${DOCKER_REPO}:${DOCKER_TAG}
+        run: docker push ${IMAGE_REPO}:${IMAGE_TAG}
