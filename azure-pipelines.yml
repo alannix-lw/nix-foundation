@@ -26,12 +26,12 @@ steps:
   displayName: 'npm install and build'
 
 - script: |
-    docker build -t $(IMAGE_REPO):$(IMAGE_TAG) .
+    docker build -t $(image_repo):$(image_tag) .
   displayName: 'Build the Docker Image'
 
 - script: |
     docker run --rm -e LW_ACCOUNT_NAME -e LW_ACCESS_TOKEN -v /var/run/docker.sock:/var/run/docker.sock \
-    lacework/lacework-inline-scanner:latest image evaluate $(IMAGE_REPO) $(IMAGE_TAG)
+    lacework/lacework-inline-scanner:latest image evaluate $(image_repo) $(image_tag)
   displayName: 'Perform Lacework Image Assurance Scan'
   env:
     LW_ACCESS_TOKEN: $(LW_ACCESS_TOKEN)
