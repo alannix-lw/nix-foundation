@@ -37,7 +37,8 @@ jobs:
         run: |
           ./lw-scanner image evaluate ${IMAGE_REPO} ${IMAGE_TAG} \
             --build-id ${{ github.run_id }} --html --html-file lacework-report.html \
-            --policy --fail-on-violation-exit-code 1
+            --policy --fail-on-violation-exit-code 1 --exceptions \
+            --fixable --pretty --no-color
 
       - name: Save Lacework HTML Report
         if: always()
